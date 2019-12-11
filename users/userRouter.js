@@ -100,7 +100,7 @@ router.put('/:id', validateUserId, (req, res) => {
 //custom middleware
 
 function validateUserId(req, res, next) {
-  const { id } = req.params;
+  const { id } = req.params
 
   Users.getById(id)
     .then(userId => {
@@ -121,7 +121,7 @@ function validateUserId(req, res, next) {
 }
 
 function validateUser(req, res, next) {
-  const newUser = req.body;
+  const newUser = req.body
 
   if (!newUser) {
     res.status(400).json({ message: "Missing user data" });
@@ -133,7 +133,7 @@ function validateUser(req, res, next) {
 }
 
 function validatePost(req, res, next) {
-  const posts = req.body;
+  const posts = req.body
 
   if (!posts) {
     res.status(400).json({ message: "Missing user data" });
@@ -144,4 +144,4 @@ function validatePost(req, res, next) {
   }
 }
 
-module.exports = router;
+module.exports = router
