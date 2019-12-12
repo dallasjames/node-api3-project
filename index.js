@@ -1,4 +1,6 @@
 const express = require("express")
+const dotenv = require("dotenv")
+dotenv.config()
 const server =  express()
 const users = require("./users/userRouter")
 const posts = require("./posts/postRouter")
@@ -10,6 +12,9 @@ server.use(logger())
 server.use("/api/users", users)
 server.use("/api/posts", posts)
 
-server.listen(4000, () => {
+const host = process.env.HOST || "0.0.0.0"
+const port = process.env.PORT || 8080
+
+server.listen(host, port, () => {
     console.log("\n*** Server Running on http://localhost:4000 ***\n")
 })
