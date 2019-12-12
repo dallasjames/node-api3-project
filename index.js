@@ -1,6 +1,6 @@
 const express = require("express")
-const dotenv = require("dotenv")
-dotenv.config()
+// const dotenv = require("dotenv")
+// dotenv.config()
 const server =  express()
 const users = require("./users/userRouter")
 const posts = require("./posts/postRouter")
