@@ -12,6 +12,11 @@ dotenv.config()
 server.use(express.json())
 
 server.use(logger())
+server.use("/", (req,res) => {
+    res.status(200).json({
+        message: "you made it"
+    })
+})
 server.use("/api/users", users)
 server.use("/api/posts", posts)
 
