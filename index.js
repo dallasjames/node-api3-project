@@ -4,8 +4,8 @@ const server =  express()
 const users = require("./users/userRouter")
 const posts = require("./posts/postRouter")
 const logger = require("./middleware/logger")
-const host = process.env.HOST || "127.0.0.1"
-let port = process.env.PORT || 8080
+// const host = process.env.HOST || "127.0.0.1"
+// let port = process.env.PORT || 8080
 
 dotenv.config()
 
@@ -20,6 +20,6 @@ server.use(logger())
 server.use("/api/users", users)
 server.use("/api/posts", posts)
 
-server.listen(port, host, () => {
+server.listen(process.env.PORT, process.env.HOST, () => {
     console.log(`\n*** Server Running on whatever it wants ***\n`)
 })
