@@ -5,7 +5,7 @@ const users = require("./users/userRouter")
 const posts = require("./posts/postRouter")
 const logger = require("./middleware/logger")
 // const host = process.env.HOST || "127.0.0.1"
-const port = process.env.PORT || 8080
+let port = process.env.PORT || 8080
 
 dotenv.config()
 
