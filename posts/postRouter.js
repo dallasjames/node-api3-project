@@ -1,5 +1,6 @@
 const express = require('express');
 const post = require("./postDb")
+const validatePostId = require("../middleware/validatePostId")
 
 const router = express.Router();
 
@@ -27,20 +28,18 @@ router.get('/:id', validatePostId, (req, res) => {
     })
 });
 
-router.delete('/:id', validatePostId, (req, res) => {
-  let id = req.params.id
-  post.remove(id)
-      .then( user => {
-          res.status(204).json({
-              message: "post deleted"
-          })   
-      })
-      .catch(err => {
-          res.status(500).json({
-              error: "internal error"
-          })
-      })
-});
+router.post("/", (req, res) => {
+  post.insert(req.body)
+    .then(post => {
+      res.status(200).json(post)
+    })
+    .catch((err) => {
+      console.log(err)
+      res.status(500).json({
+        error: "internal error"
+    })
+  })
+})
 
 router.put('/:id', validatePostId, (req, res) => {
   let id = req.params.id
@@ -56,20 +55,19 @@ router.put('/:id', validatePostId, (req, res) => {
       })
 });
 
-// custom middleware
+router.delete('/:id', validatePostId, (req, res) => {
+  let id = req.params.id
+  post.remove(id)
+      .then( user => {
+          res.status(204).json({
+              message: "post deleted"
+          })   
+      })
+      .catch(err => {
+          res.status(500).json({
+              error: "internal error"
+          })
+      })
+});
 
-function validatePostId(req, res, next) {
-  const { id } = req.params
-
-  post.getById(id)
-    .then(postID => {
-      if (postID) {
-        postID = req.post
-        next()
-      } else {
-        res.status(404).json({ errorMessage: "user not found"})
-      }
-    })
-}
-
-module.exports = router;
+module.exports = router
