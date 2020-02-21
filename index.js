@@ -1,5 +1,6 @@
 const express = require("express")
 const dotenv = require("dotenv")
+const cors = require("cors")
 const server =  express()
 const users = require("./users/userRouter")
 const posts = require("./posts/postRouter")
@@ -10,8 +11,14 @@ let port = process.env.PORT || 8080
 dotenv.config()
 
 server.use(express.json())
+server.use(cors())
 
 server.use(logger())
+server.get("/", (req, res) => {
+    res.status(200).json({
+        message: process.env.SUPER_SECRET_PASSWORD || "respect my authoritauh"
+    })
+})
 server.use("/api/users", users)
 server.use("/api/posts", posts)
 
@@ -21,5 +28,5 @@ server.use("/", (req,res) => {
     })
 })
 server.listen(port, host, () => {
-    console.log(`\n*** Server Running on whatever it wants ***\n`)
+    console.log(`\n*** Server Running ${host}:${port} ***\n`)
 })
