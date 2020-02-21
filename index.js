@@ -16,7 +16,7 @@ server.use(cors())
 server.use(logger())
 server.get("/", (req, res) => {
     res.status(200).json({
-        message: /*process.env.SUPER_SECRET_PASSWORD ||*/ "respect my authoritauh"
+        message: process.env.SUPER_SECRET_PASSWORD || "respect my authoritauh"
     })
 })
 server.use("/api/users", users)
@@ -27,6 +27,6 @@ server.use("/", (req,res) => {
         message: "you made it"
     })
 })
-server.listen(port, host, () => {
+server.listen(port, () => {
     console.log(`\n*** Server Running ${host}:${port} ***\n`)
 })
